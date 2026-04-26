@@ -2,10 +2,10 @@ package fuzs.dyedflames.client;
 
 import fuzs.dyedflames.client.handler.ColoredFireOverlayHandler;
 import fuzs.dyedflames.init.ModRegistry;
-import fuzs.puzzleslib.api.client.core.v1.ClientModConstructor;
-import fuzs.puzzleslib.api.client.core.v1.context.ParticleProvidersContext;
-import fuzs.puzzleslib.api.client.event.v1.renderer.ExtractRenderStateCallback;
-import fuzs.puzzleslib.api.client.event.v1.renderer.RenderBlockOverlayCallback;
+import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
+import fuzs.puzzleslib.common.api.client.core.v1.context.ParticleProvidersContext;
+import fuzs.puzzleslib.common.api.client.event.v1.renderer.ExtractEntityRenderStateCallback;
+import fuzs.puzzleslib.common.api.client.event.v1.renderer.RenderBlockOverlayCallback;
 import net.minecraft.client.particle.LavaParticle;
 
 public class DyedFlamesClient implements ClientModConstructor {
@@ -16,7 +16,7 @@ public class DyedFlamesClient implements ClientModConstructor {
     }
 
     private static void registerEventHandlers() {
-        ExtractRenderStateCallback.EVENT.register(ColoredFireOverlayHandler::onExtractRenderState);
+        ExtractEntityRenderStateCallback.EVENT.register(ColoredFireOverlayHandler::onExtractEntityRenderState);
         RenderBlockOverlayCallback.EVENT.register(ColoredFireOverlayHandler::onRenderBlockOverlay);
     }
 

@@ -1,8 +1,8 @@
 package fuzs.dyedflames.data.client;
 
 import fuzs.dyedflames.init.ModRegistry;
-import fuzs.puzzleslib.api.client.data.v2.AbstractParticleProvider;
-import fuzs.puzzleslib.api.data.v2.core.DataProviderContext;
+import fuzs.puzzleslib.common.api.client.data.v2.AbstractParticleProvider;
+import fuzs.puzzleslib.common.api.data.v2.core.DataProviderContext;
 
 public class ModParticleProvider extends AbstractParticleProvider {
 

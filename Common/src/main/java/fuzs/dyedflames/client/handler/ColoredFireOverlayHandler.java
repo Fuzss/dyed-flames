@@ -4,15 +4,15 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import fuzs.dyedflames.DyedFlames;
 import fuzs.dyedflames.init.ModRegistry;
 import fuzs.dyedflames.world.level.block.FireType;
-import fuzs.puzzleslib.api.client.renderer.v1.RenderStateExtraData;
-import fuzs.puzzleslib.api.event.v1.core.EventResult;
+import fuzs.puzzleslib.common.api.client.renderer.v1.RenderStateExtraData;
+import fuzs.puzzleslib.common.api.event.v1.core.EventResult;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.ScreenEffectRenderer;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.client.resources.model.sprite.SpriteGetter;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.context.ContextKey;
@@ -26,24 +26,24 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class ColoredFireOverlayHandler {
-    private static final Function<Identifier, Material> FIRE_MATERIALS = Util.memoize((Identifier identifier) -> {
-        return new Material(TextureAtlas.LOCATION_BLOCKS, identifier);
+    private static final Function<Identifier, SpriteId> FIRE_MATERIALS = Util.memoize((Identifier identifier) -> {
+        return new SpriteId(TextureAtlas.LOCATION_BLOCKS, identifier);
     });
     public static final ContextKey<Block> LAST_FIRE_SOURCE_RENDER_PROPERTY = new ContextKey<>(DyedFlames.id(
             "last_fire_source"));
 
-    public static void onExtractRenderState(Entity entity, EntityRenderState renderState, float partialTick) {
+    public static void onExtractEntityRenderState(Entity entity, EntityRenderState renderState, float partialTick) {
         Block block = ModRegistry.LAST_FIRE_SOURCE_ATTACHMENT_TYPE.getOrDefault(entity, Blocks.FIRE);
         RenderStateExtraData.set(renderState, LAST_FIRE_SOURCE_RENDER_PROPERTY, block);
     }
 
-    public static Optional<Material> getFireOverlaySprite(EntityRenderState renderState, Function<FireType, Identifier> textureGetter) {
+    public static Optional<SpriteId> getFireOverlaySprite(EntityRenderState renderState, Function<FireType, Identifier> textureGetter) {
         return getFireOverlaySprite(RenderStateExtraData.getOrDefault(renderState,
                 LAST_FIRE_SOURCE_RENDER_PROPERTY,
                 Blocks.AIR), textureGetter);
     }
 
-    public static Optional<Material> getFireOverlaySprite(@Nullable Entity entity, Function<FireType, Identifier> textureGetter) {
+    public static Optional<SpriteId> getFireOverlaySprite(@Nullable Entity entity, Function<FireType, Identifier> textureGetter) {
         if (entity != null) {
             return getFireOverlaySprite(ModRegistry.LAST_FIRE_SOURCE_ATTACHMENT_TYPE.getOrDefault(entity, Blocks.FIRE),
                     textureGetter);
@@ -52,15 +52,15 @@ public class ColoredFireOverlayHandler {
         }
     }
 
-    private static Optional<Material> getFireOverlaySprite(Block block, Function<FireType, Identifier> textureGetter) {
+    private static Optional<SpriteId> getFireOverlaySprite(Block block, Function<FireType, Identifier> textureGetter) {
         return FireType.getFireType(block)
                 .map((FireType fireType) -> FIRE_MATERIALS.apply(textureGetter.apply(fireType)));
     }
 
-    public static EventResult onRenderBlockOverlay(LocalPlayer player, PoseStack poseStack, MultiBufferSource bufferSource, BlockState blockState, MaterialSet materialSet) {
+    public static EventResult onRenderBlockOverlay(LocalPlayer player, PoseStack poseStack, MultiBufferSource bufferSource, BlockState blockState, SpriteGetter sprites) {
         return blockState.is(Blocks.FIRE) ?
-                ColoredFireOverlayHandler.getFireOverlaySprite(player, FireType::texture1).map((Material material) -> {
-                    ScreenEffectRenderer.renderFire(poseStack, bufferSource, materialSet.get(material));
+                ColoredFireOverlayHandler.getFireOverlaySprite(player, FireType::texture1).map((SpriteId material) -> {
+                    ScreenEffectRenderer.renderFire(poseStack, bufferSource, sprites.get(material));
                     return EventResult.INTERRUPT;
                 }).orElse(EventResult.PASS) : EventResult.PASS;
     }

@@ -2,12 +2,12 @@ package fuzs.dyedflames.init;
 
 import fuzs.dyedflames.DyedFlames;
 import fuzs.dyedflames.world.level.block.FireType;
-import fuzs.neoforgedatapackextensions.api.v1.DataMapRegistry;
-import fuzs.neoforgedatapackextensions.api.v1.DataMapToken;
-import fuzs.puzzleslib.api.attachment.v4.DataAttachmentRegistry;
-import fuzs.puzzleslib.api.attachment.v4.DataAttachmentType;
-import fuzs.puzzleslib.api.init.v3.registry.RegistryManager;
-import fuzs.puzzleslib.api.network.v4.PlayerSet;
+import fuzs.multiloaderdataextensions.common.api.v2.DataMapRegistrar;
+import fuzs.multiloaderdataextensions.common.api.v2.DataMapToken;
+import fuzs.puzzleslib.common.api.attachment.v4.DataAttachmentRegistry;
+import fuzs.puzzleslib.common.api.attachment.v4.DataAttachmentType;
+import fuzs.puzzleslib.common.api.init.v3.registry.RegistryManager;
+import fuzs.puzzleslib.common.api.network.v4.PlayerSet;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -21,12 +21,8 @@ public class ModRegistry {
     public static final Holder.Reference<SimpleParticleType> SOUL_LAVA_PARTICLE_TYPE = REGISTRIES.registerParticleType(
             "soul_lava");
 
-    public static final DataMapToken<Block, FireType> FIRE_TYPES_DATA_MAP_TYPE = DataMapRegistry.INSTANCE.register(
-            DyedFlames.id("fire_types"),
-            Registries.BLOCK,
-            FireType.CODEC,
-            FireType.CODEC,
-            true);
+    public static final DataMapToken<Block, FireType> FIRE_TYPES_DATA_MAP_TYPE = DataMapRegistrar.register(DyedFlames.id(
+            "fire_types"), Registries.BLOCK, FireType.CODEC, FireType.CODEC, true);
 
     public static final DataAttachmentType<Entity, Block> LAST_FIRE_SOURCE_ATTACHMENT_TYPE = DataAttachmentRegistry.<Block>entityBuilder()
             .persistent(BuiltInRegistries.BLOCK.byNameCodec())

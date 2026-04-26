@@ -3,7 +3,7 @@ package fuzs.dyedflames.neoforge.client;
 import fuzs.dyedflames.DyedFlames;
 import fuzs.dyedflames.client.DyedFlamesClient;
 import fuzs.dyedflames.data.client.ModParticleProvider;
-import fuzs.puzzleslib.api.client.core.v1.ClientModConstructor;
+import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
 import fuzs.puzzleslib.neoforge.api.data.v2.core.DataProviderHelper;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.common.Mod;

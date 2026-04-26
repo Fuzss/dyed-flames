@@ -2,9 +2,9 @@ package fuzs.dyedflames;
 
 import fuzs.dyedflames.handler.EntityInsideFireHandler;
 import fuzs.dyedflames.init.ModRegistry;
-import fuzs.puzzleslib.api.core.v1.ModConstructor;
+import fuzs.puzzleslib.common.api.core.v1.ModConstructor;
 import net.minecraft.resources.Identifier;
-import fuzs.puzzleslib.api.event.v1.entity.EntityTickEvents;
+import fuzs.puzzleslib.common.api.event.v1.entity.EntityTickEvents;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
