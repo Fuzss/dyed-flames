@@ -1,7 +1,7 @@
-package fuzs.dyedflames.init;
+package fuzs.dyedflames.common.init;
 
-import fuzs.dyedflames.DyedFlames;
-import fuzs.dyedflames.world.level.block.FireType;
+import fuzs.dyedflames.common.DyedFlames;
+import fuzs.dyedflames.common.world.level.block.FireType;
 import fuzs.multiloaderdataextensions.common.api.v2.DataMapRegistrar;
 import fuzs.multiloaderdataextensions.common.api.v2.DataMapToken;
 import fuzs.puzzleslib.common.api.attachment.v4.DataAttachmentRegistry;

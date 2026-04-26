@@ -1,11 +1,10 @@
-package fuzs.dyedflames;
+package fuzs.dyedflames.common;
 
-import fuzs.dyedflames.handler.EntityInsideFireHandler;
-import fuzs.dyedflames.init.ModRegistry;
+import fuzs.dyedflames.common.handler.EntityInsideFireHandler;
+import fuzs.dyedflames.common.init.ModRegistry;
 import fuzs.puzzleslib.common.api.core.v1.ModConstructor;
 import net.minecraft.resources.Identifier;
 import fuzs.puzzleslib.common.api.event.v1.entity.EntityTickEvents;
-import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

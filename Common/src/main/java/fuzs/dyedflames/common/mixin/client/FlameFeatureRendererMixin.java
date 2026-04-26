@@ -1,8 +1,8 @@
-package fuzs.dyedflames.mixin.client;
+package fuzs.dyedflames.common.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import fuzs.dyedflames.client.handler.ColoredFireOverlayHandler;
-import fuzs.dyedflames.world.level.block.FireType;
+import fuzs.dyedflames.common.client.handler.ColoredFireOverlayHandler;
+import fuzs.dyedflames.common.world.level.block.FireType;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.feature.FlameFeatureRenderer;

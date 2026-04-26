@@ -1,7 +1,7 @@
 package fuzs.dyedflames.neoforge.data;
 
-import fuzs.dyedflames.init.ModRegistry;
-import fuzs.dyedflames.world.level.block.FireType;
+import fuzs.dyedflames.common.init.ModRegistry;
+import fuzs.dyedflames.common.world.level.block.FireType;
 import fuzs.multiloaderdataextensions.neoforge.api.v2.NeoForgeDataMapToken;
 import fuzs.puzzleslib.common.api.data.v2.core.DataProviderContext;
 import net.minecraft.core.HolderLookup;

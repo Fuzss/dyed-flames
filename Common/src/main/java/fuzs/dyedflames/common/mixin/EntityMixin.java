@@ -1,6 +1,6 @@
-package fuzs.dyedflames.mixin;
+package fuzs.dyedflames.common.mixin;
 
-import fuzs.dyedflames.handler.EntityInsideFireHandler;
+import fuzs.dyedflames.common.handler.EntityInsideFireHandler;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

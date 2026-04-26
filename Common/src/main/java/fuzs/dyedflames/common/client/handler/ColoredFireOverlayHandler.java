@@ -1,9 +1,9 @@
-package fuzs.dyedflames.client.handler;
+package fuzs.dyedflames.common.client.handler;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import fuzs.dyedflames.DyedFlames;
-import fuzs.dyedflames.init.ModRegistry;
-import fuzs.dyedflames.world.level.block.FireType;
+import fuzs.dyedflames.common.DyedFlames;
+import fuzs.dyedflames.common.init.ModRegistry;
+import fuzs.dyedflames.common.world.level.block.FireType;
 import fuzs.puzzleslib.common.api.client.renderer.v1.RenderStateExtraData;
 import fuzs.puzzleslib.common.api.event.v1.core.EventResult;
 import net.minecraft.client.player.LocalPlayer;

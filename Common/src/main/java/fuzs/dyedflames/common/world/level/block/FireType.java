@@ -1,9 +1,9 @@
-package fuzs.dyedflames.world.level.block;
+package fuzs.dyedflames.common.world.level.block;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import fuzs.dyedflames.init.ModRegistry;
+import fuzs.dyedflames.common.init.ModRegistry;
 import fuzs.multiloaderdataextensions.common.api.v2.DataMapLookup;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;

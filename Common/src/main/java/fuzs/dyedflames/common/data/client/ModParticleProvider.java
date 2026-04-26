@@ -1,6 +1,6 @@
-package fuzs.dyedflames.data.client;
+package fuzs.dyedflames.common.data.client;
 
-import fuzs.dyedflames.init.ModRegistry;
+import fuzs.dyedflames.common.init.ModRegistry;
 import fuzs.puzzleslib.common.api.client.data.v2.AbstractParticleProvider;
 import fuzs.puzzleslib.common.api.data.v2.core.DataProviderContext;
 

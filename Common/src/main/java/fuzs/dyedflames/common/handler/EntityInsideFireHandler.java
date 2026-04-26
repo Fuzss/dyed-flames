@@ -1,7 +1,7 @@
-package fuzs.dyedflames.handler;
+package fuzs.dyedflames.common.handler;
 
-import fuzs.dyedflames.init.ModRegistry;
-import fuzs.dyedflames.world.level.block.FireType;
+import fuzs.dyedflames.common.init.ModRegistry;
+import fuzs.dyedflames.common.world.level.block.FireType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.tags.TagKey;

@@ -1,7 +1,7 @@
-package fuzs.dyedflames.client;
+package fuzs.dyedflames.common.client;
 
-import fuzs.dyedflames.client.handler.ColoredFireOverlayHandler;
-import fuzs.dyedflames.init.ModRegistry;
+import fuzs.dyedflames.common.client.handler.ColoredFireOverlayHandler;
+import fuzs.dyedflames.common.init.ModRegistry;
 import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
 import fuzs.puzzleslib.common.api.client.core.v1.context.ParticleProvidersContext;
 import fuzs.puzzleslib.common.api.client.event.v1.renderer.ExtractEntityRenderStateCallback;
