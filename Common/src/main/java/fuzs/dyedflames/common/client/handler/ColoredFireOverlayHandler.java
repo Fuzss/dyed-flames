@@ -7,8 +7,8 @@ import fuzs.dyedflames.common.world.level.block.FireType;
 import fuzs.puzzleslib.common.api.client.renderer.v1.RenderStateExtraData;
 import fuzs.puzzleslib.common.api.event.v1.core.EventResult;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.ScreenEffectRenderer;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.sprite.SpriteGetter;
@@ -57,10 +57,10 @@ public class ColoredFireOverlayHandler {
                 .map((FireType fireType) -> FIRE_MATERIALS.apply(textureGetter.apply(fireType)));
     }
 
-    public static EventResult onRenderBlockOverlay(LocalPlayer player, PoseStack poseStack, MultiBufferSource bufferSource, BlockState blockState, SpriteGetter sprites) {
+    public static EventResult onRenderBlockOverlay(LocalPlayer player, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, BlockState blockState, SpriteGetter sprites) {
         return blockState.is(Blocks.FIRE) ?
                 ColoredFireOverlayHandler.getFireOverlaySprite(player, FireType::texture1).map((SpriteId material) -> {
-                    ScreenEffectRenderer.renderFire(poseStack, bufferSource, sprites.get(material));
+                    ScreenEffectRenderer.submitFire(poseStack, submitNodeCollector, sprites.get(material));
                     return EventResult.INTERRUPT;
                 }).orElse(EventResult.PASS) : EventResult.PASS;
     }
