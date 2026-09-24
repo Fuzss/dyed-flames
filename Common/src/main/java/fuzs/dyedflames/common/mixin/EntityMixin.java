@@ -14,8 +14,8 @@ abstract class EntityMixin {
     private int remainingFireTicks;
 
     @Inject(method = "setRemainingFireTicks", at = @At("HEAD"))
-    public void setRemainingFireTicks(int remainingFireTicks, CallbackInfo callback) {
-        if (remainingFireTicks > 0 && remainingFireTicks > this.remainingFireTicks) {
+    public void setRemainingFireTicks(int remainingTicks, CallbackInfo callback) {
+        if (remainingTicks > 0 && remainingTicks > this.remainingFireTicks) {
             EntityInsideFireHandler.setLastFireSourceFromBlocks(Entity.class.cast(this));
         }
     }

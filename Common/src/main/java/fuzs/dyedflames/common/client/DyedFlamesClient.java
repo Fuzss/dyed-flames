@@ -5,7 +5,7 @@ import fuzs.dyedflames.common.init.ModRegistry;
 import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
 import fuzs.puzzleslib.common.api.client.core.v1.context.ParticleProvidersContext;
 import fuzs.puzzleslib.common.api.client.event.v1.renderer.ExtractEntityRenderStateCallback;
-import fuzs.puzzleslib.common.api.client.event.v1.renderer.RenderBlockOverlayCallback;
+import fuzs.puzzleslib.common.api.client.event.v1.renderer.ExtractLevelRenderStateCallback;
 import net.minecraft.client.particle.LavaParticle;
 
 public class DyedFlamesClient implements ClientModConstructor {
@@ -17,7 +17,7 @@ public class DyedFlamesClient implements ClientModConstructor {
 
     private static void registerEventHandlers() {
         ExtractEntityRenderStateCallback.EVENT.register(ColoredFireOverlayHandler::onExtractEntityRenderState);
-        RenderBlockOverlayCallback.EVENT.register(ColoredFireOverlayHandler::onRenderBlockOverlay);
+        ExtractLevelRenderStateCallback.EVENT.register(ColoredFireOverlayHandler::onExtractLevelRenderState);
     }
 
     @Override

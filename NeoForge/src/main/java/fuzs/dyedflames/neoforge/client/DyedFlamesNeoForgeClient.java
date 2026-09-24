@@ -4,7 +4,7 @@ import fuzs.dyedflames.common.DyedFlames;
 import fuzs.dyedflames.common.client.DyedFlamesClient;
 import fuzs.dyedflames.common.data.client.ModParticleProvider;
 import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
-import fuzs.puzzleslib.neoforge.api.data.v2.core.DataProviderHelper;
+import fuzs.puzzleslib.neoforge.api.data.v3.core.DataProviderBuilder;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.common.Mod;
 
@@ -13,6 +13,6 @@ public class DyedFlamesNeoForgeClient {
 
     public DyedFlamesNeoForgeClient() {
         ClientModConstructor.construct(DyedFlames.MOD_ID, DyedFlamesClient::new);
-        DataProviderHelper.registerDataProviders(DyedFlames.MOD_ID, ModParticleProvider::new);
+        DataProviderBuilder.of(DyedFlames.MOD_ID).addProvider(ModParticleProvider::new);
     }
 }

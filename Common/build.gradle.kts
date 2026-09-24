@@ -10,6 +10,7 @@ dependencies {
 multiloader {
     mixins {
         mixin("EntityMixin")
+        clientMixin("ScreenEffectRendererMixin")
         clientMixin("FlameFeatureRendererMixin")
     }
 }
