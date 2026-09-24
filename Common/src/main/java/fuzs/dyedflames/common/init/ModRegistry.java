@@ -24,10 +24,10 @@ public class ModRegistry {
     public static final DataMapToken<Block, FireType> FIRE_TYPES_DATA_MAP_TYPE = DataMapRegistrar.register(DyedFlames.id(
             "fire_types"), Registries.BLOCK, FireType.CODEC, FireType.CODEC, true);
 
-    public static final DataAttachmentType<Entity, Block> LAST_FIRE_SOURCE_ATTACHMENT_TYPE = DataAttachmentRegistry.<Block>entityBuilder()
+    public static final DataAttachmentType<Entity, Block> FIRE_ATTACHMENT_TYPE = DataAttachmentRegistry.<Block>entityBuilder()
             .persistent(BuiltInRegistries.BLOCK.byNameCodec())
             .networkSynchronized(ByteBufCodecs.registry(Registries.BLOCK), PlayerSet::nearEntity)
-            .build(DyedFlames.id("last_fire_source"));
+            .build(DyedFlames.id("fire_type"));
     public static final DataAttachmentType<Entity, Boolean> WAS_ON_FIRE_ATTACHMENT_TYPE = DataAttachmentRegistry.<Boolean>entityBuilder()
             .build(DyedFlames.id("was_on_fire"));
 

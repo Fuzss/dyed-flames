@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.extract.LevelExtractor;
 import net.minecraft.client.renderer.state.level.LevelRenderState;
-import net.minecraft.client.renderer.state.level.PlayerRenderState;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.resources.Identifier;
@@ -26,39 +25,31 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class ColoredFireOverlayHandler {
-    private static final Function<Identifier, SpriteId> FIRE_MATERIALS = Util.memoize((Identifier identifier) -> {
-        return new SpriteId(TextureAtlas.LOCATION_BLOCKS, identifier);
+public class FireOverlayHandler {
+    private static final Function<Identifier, SpriteId> FIRE_MATERIALS = Util.memoize((Identifier textureLocation) -> {
+        return new SpriteId(TextureAtlas.LOCATION_BLOCKS, textureLocation);
     });
-    public static final ContextKey<Block> LAST_FIRE_SOURCE_RENDER_PROPERTY = new ContextKey<>(DyedFlames.id(
-            "last_fire_source"));
+    public static final ContextKey<Block> FIRE_TYPE_KEY = new ContextKey<>(DyedFlames.id("fire_type"));
 
     public static void onExtractEntityRenderState(Entity entity, EntityRenderState renderState, float partialTick) {
-        Block block = ModRegistry.LAST_FIRE_SOURCE_ATTACHMENT_TYPE.getOrDefault(entity, Blocks.FIRE);
-        RenderStateExtraData.set(renderState, LAST_FIRE_SOURCE_RENDER_PROPERTY, block);
+        Block fireType = ModRegistry.FIRE_ATTACHMENT_TYPE.getOrDefault(entity, Blocks.FIRE);
+        RenderStateExtraData.set(renderState, FIRE_TYPE_KEY, fireType);
     }
 
     public static void onExtractLevelRenderState(LevelExtractor levelExtractor, LevelRenderState renderState, ClientLevel level, Camera camera, Frustum frustum, DeltaTracker deltaTracker) {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player != null) {
-            RenderStateExtraData.set(renderState.playerRenderState, LAST_FIRE_SOURCE_RENDER_PROPERTY,
-                    ModRegistry.LAST_FIRE_SOURCE_ATTACHMENT_TYPE.getOrDefault(player, Blocks.FIRE));
+            Block fireType = ModRegistry.FIRE_ATTACHMENT_TYPE.getOrDefault(player, Blocks.FIRE);
+            RenderStateExtraData.set(renderState.playerRenderState, FIRE_TYPE_KEY, fireType);
         }
     }
 
-    public static Optional<SpriteId> getFireOverlaySprite(EntityRenderState renderState, Function<FireType, Identifier> textureGetter) {
-        return getFireOverlaySprite(RenderStateExtraData.getOrDefault(renderState,
-                LAST_FIRE_SOURCE_RENDER_PROPERTY,
-                Blocks.AIR), textureGetter);
+    public static Optional<SpriteId> getFireEntitySprite(Object state, Function<FireType, Identifier> textureGetter) {
+        Block fireType = RenderStateExtraData.getOrDefault(state, FIRE_TYPE_KEY, Blocks.AIR);
+        return getFireBlockSprite(fireType, textureGetter);
     }
 
-    public static Optional<SpriteId> getFireOverlaySprite(PlayerRenderState renderState, Function<FireType, Identifier> textureGetter) {
-        return getFireOverlaySprite(RenderStateExtraData.getOrDefault(renderState,
-                LAST_FIRE_SOURCE_RENDER_PROPERTY,
-                Blocks.AIR), textureGetter);
-    }
-
-    private static Optional<SpriteId> getFireOverlaySprite(Block block, Function<FireType, Identifier> textureGetter) {
+    private static Optional<SpriteId> getFireBlockSprite(Block block, Function<FireType, Identifier> textureGetter) {
         return FireType.getFireType(block)
                 .map((FireType fireType) -> FIRE_MATERIALS.apply(textureGetter.apply(fireType)));
     }

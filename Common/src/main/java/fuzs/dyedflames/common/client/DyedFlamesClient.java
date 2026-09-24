@@ -1,6 +1,6 @@
 package fuzs.dyedflames.common.client;
 
-import fuzs.dyedflames.common.client.handler.ColoredFireOverlayHandler;
+import fuzs.dyedflames.common.client.handler.FireOverlayHandler;
 import fuzs.dyedflames.common.init.ModRegistry;
 import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
 import fuzs.puzzleslib.common.api.client.core.v1.context.ParticleProvidersContext;
@@ -16,8 +16,8 @@ public class DyedFlamesClient implements ClientModConstructor {
     }
 
     private static void registerEventHandlers() {
-        ExtractEntityRenderStateCallback.EVENT.register(ColoredFireOverlayHandler::onExtractEntityRenderState);
-        ExtractLevelRenderStateCallback.EVENT.register(ColoredFireOverlayHandler::onExtractLevelRenderState);
+        ExtractEntityRenderStateCallback.EVENT.register(FireOverlayHandler::onExtractEntityRenderState);
+        ExtractLevelRenderStateCallback.EVENT.register(FireOverlayHandler::onExtractLevelRenderState);
     }
 
     @Override

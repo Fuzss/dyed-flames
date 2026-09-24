@@ -32,7 +32,7 @@ public class EntityInsideFireHandler {
             if (entity.isOnFire()) {
                 copyLastFireSourceFromAttacker(entity);
             } else if (!entity.level().isClientSide()) {
-                ModRegistry.LAST_FIRE_SOURCE_ATTACHMENT_TYPE.set(entity, null);
+                ModRegistry.FIRE_ATTACHMENT_TYPE.set(entity, null);
             }
         }
     }
@@ -40,7 +40,7 @@ public class EntityInsideFireHandler {
     private static void emitFlameParticles(Entity entity) {
         // this is client-side
         if (entity.displayFireAnimation() && entity.getRandom().nextInt(5) == 0) {
-            Block block = ModRegistry.LAST_FIRE_SOURCE_ATTACHMENT_TYPE.getOrDefault(entity, Blocks.FIRE);
+            Block block = ModRegistry.FIRE_ATTACHMENT_TYPE.getOrDefault(entity, Blocks.FIRE);
             FireType.getFireType(block)
                     .flatMap(FireType::particleType)
                     .ifPresent((SimpleParticleType simpleParticleType) -> entity.level()
@@ -58,9 +58,9 @@ public class EntityInsideFireHandler {
         if (entity instanceof LivingEntity livingEntity) {
             Entity lastAttacker = getLastAttacker(livingEntity);
             if (lastAttacker != null && lastAttacker.isOnFire()) {
-                Block block = ModRegistry.LAST_FIRE_SOURCE_ATTACHMENT_TYPE.get(lastAttacker);
+                Block block = ModRegistry.FIRE_ATTACHMENT_TYPE.get(lastAttacker);
                 if (block != null) {
-                    ModRegistry.LAST_FIRE_SOURCE_ATTACHMENT_TYPE.set(entity, block);
+                    ModRegistry.FIRE_ATTACHMENT_TYPE.set(entity, block);
                 }
             }
         }
@@ -92,7 +92,7 @@ public class EntityInsideFireHandler {
         if (fireType.isPresent()) {
             Optional<TagKey<Fluid>> fluids = fireType.get().fluid();
             if (fluids.isEmpty() || entity.getFluidHeight(fluids.get()) > 0.0) {
-                ModRegistry.LAST_FIRE_SOURCE_ATTACHMENT_TYPE.set(entity, blockState.getBlock());
+                ModRegistry.FIRE_ATTACHMENT_TYPE.set(entity, blockState.getBlock());
                 return true;
             }
         }

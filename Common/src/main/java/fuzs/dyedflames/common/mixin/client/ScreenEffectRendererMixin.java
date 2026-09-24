@@ -1,7 +1,7 @@
 package fuzs.dyedflames.common.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import fuzs.dyedflames.common.client.handler.ColoredFireOverlayHandler;
+import fuzs.dyedflames.common.client.handler.FireOverlayHandler;
 import fuzs.dyedflames.common.world.level.block.FireType;
 import net.minecraft.client.renderer.ScreenEffectRenderer;
 import net.minecraft.client.renderer.state.level.PlayerRenderState;
@@ -18,6 +18,6 @@ abstract class ScreenEffectRendererMixin {
                         target = "Lnet/minecraft/client/resources/model/sprite/SpriteGetter;get(Lnet/minecraft/client/resources/model/sprite/SpriteId;)Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;"),
                index = 0)
     public SpriteId submit(SpriteId spriteId, @Local(argsOnly = true) PlayerRenderState playerRenderState) {
-        return ColoredFireOverlayHandler.getFireOverlaySprite(playerRenderState, FireType::texture1).orElse(spriteId);
+        return FireOverlayHandler.getFireEntitySprite(playerRenderState, FireType::texture1).orElse(spriteId);
     }
 }
