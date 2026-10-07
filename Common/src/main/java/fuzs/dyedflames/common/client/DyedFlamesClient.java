@@ -1,6 +1,7 @@
 package fuzs.dyedflames.common.client;
 
 import fuzs.dyedflames.common.client.handler.FireOverlayHandler;
+import fuzs.dyedflames.common.client.particle.FireParticleProvider;
 import fuzs.dyedflames.common.init.ModRegistry;
 import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
 import fuzs.puzzleslib.common.api.client.core.v1.context.ParticleProvidersContext;
@@ -23,5 +24,6 @@ public class DyedFlamesClient implements ClientModConstructor {
     @Override
     public void onRegisterParticleProviders(ParticleProvidersContext context) {
         context.registerParticleProvider(ModRegistry.SOUL_LAVA_PARTICLE_TYPE.value(), LavaParticle.Provider::new);
+        context.registerParticleProvider(ModRegistry.FIRE_PARTICLE_TYPE.value(), new FireParticleProvider());
     }
 }

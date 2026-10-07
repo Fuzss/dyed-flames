@@ -1,6 +1,7 @@
 package fuzs.dyedflames.common.init;
 
 import fuzs.dyedflames.common.DyedFlames;
+import fuzs.dyedflames.common.core.particles.FireParticleOption;
 import fuzs.dyedflames.common.world.level.block.FireType;
 import fuzs.multiloaderdataextensions.common.api.v2.DataMapRegistrar;
 import fuzs.multiloaderdataextensions.common.api.v2.DataMapToken;
@@ -9,6 +10,7 @@ import fuzs.puzzleslib.common.api.attachment.v4.DataAttachmentType;
 import fuzs.puzzleslib.common.api.init.v3.registry.RegistryManager;
 import fuzs.puzzleslib.common.api.network.v4.PlayerSet;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -20,6 +22,11 @@ public class ModRegistry {
     static final RegistryManager REGISTRIES = RegistryManager.from(DyedFlames.MOD_ID);
     public static final Holder.Reference<SimpleParticleType> SOUL_LAVA_PARTICLE_TYPE = REGISTRIES.registerParticleType(
             "soul_lava");
+    public static final Holder.Reference<ParticleType<FireParticleOption>> FIRE_PARTICLE_TYPE = REGISTRIES.registerParticleType(
+            "fire",
+            false,
+            FireParticleOption::codec,
+            FireParticleOption::streamCodec);
 
     public static final DataMapToken<Block, FireType> FIRE_TYPES_DATA_MAP_TYPE = DataMapRegistrar.register(DyedFlames.id(
             "fire_types"), Registries.BLOCK, FireType.CODEC, FireType.CODEC, true);

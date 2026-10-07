@@ -3,7 +3,7 @@ package fuzs.dyedflames.common.handler;
 import fuzs.dyedflames.common.init.ModRegistry;
 import fuzs.dyedflames.common.world.level.block.FireType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.CombatEntry;
 import net.minecraft.world.entity.Entity;
@@ -42,9 +42,9 @@ public class EntityInsideFireHandler {
         if (entity.displayFireAnimation() && entity.getRandom().nextInt(5) == 0) {
             Block block = ModRegistry.FIRE_ATTACHMENT_TYPE.getOrDefault(entity, Blocks.FIRE);
             FireType.getFireType(block)
-                    .flatMap(FireType::particleType)
-                    .ifPresent((SimpleParticleType simpleParticleType) -> entity.level()
-                            .addParticle(simpleParticleType,
+                    .flatMap(FireType::createParticleOptions)
+                    .ifPresent((ParticleOptions particleOptions) -> entity.level()
+                            .addParticle(particleOptions,
                                     entity.getRandomX(0.5),
                                     entity.getRandomY(),
                                     entity.getRandomZ(0.5),

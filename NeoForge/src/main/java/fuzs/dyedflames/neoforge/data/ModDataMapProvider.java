@@ -1,5 +1,6 @@
 package fuzs.dyedflames.neoforge.data;
 
+import com.mojang.datafixers.util.Either;
 import fuzs.dyedflames.common.init.ModRegistry;
 import fuzs.dyedflames.common.world.level.block.FireType;
 import fuzs.multiloaderdataextensions.neoforge.api.v2.NeoForgeDataMapToken;
@@ -56,7 +57,7 @@ public class ModDataMapProvider extends DataMapProvider {
 
     static void register(Builder<FireType, Block> builder, Block block, Optional<TagKey<Fluid>> fluids, Identifier texture0, Identifier texture1, SimpleParticleType particleType) {
         builder.add(block.builtInRegistryHolder(),
-                new FireType(fluids, texture0, texture1, Optional.of(particleType)),
+                new FireType(fluids, texture0, texture1, Optional.of(Either.left(particleType))),
                 false);
     }
 }
