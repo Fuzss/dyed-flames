@@ -30,13 +30,22 @@ public record FireType(Optional<TagKey<Fluid>> fluid,
                         DataResult.success(simpleParticleType) : DataResult.error(() -> "Unsupported type "
                         + BuiltInRegistries.PARTICLE_TYPE.getKey(particleType));
             }, DataResult::success);
-    public static final Codec<FireType> CODEC = RecordCodecBuilder.create(instance -> instance.group(TagKey.codec(
-                    Registries.FLUID).optionalFieldOf("fluid").forGetter(FireType::fluid),
-            Identifier.CODEC.fieldOf("texture0").forGetter(FireType::texture0),
-            Identifier.CODEC.fieldOf("texture1").forGetter(FireType::texture1),
-            Codec.either(PARTICLE_TYPE_CODEC, ParticleSprites.CODEC.codec())
-                    .optionalFieldOf("particle")
-                    .forGetter(FireType::particle)).apply(instance, FireType::new));
+    public static final Codec<FireType> CODEC = RecordCodecBuilder.create(instance -> {
+        return instance.group(TagKey.codec(Registries.FLUID).optionalFieldOf("fluid").forGetter(FireType::fluid),
+                Identifier.CODEC.fieldOf("texture0").forGetter(FireType::texture0),
+                Identifier.CODEC.fieldOf("texture1").forGetter(FireType::texture1),
+                Codec.withAlternative(Codec.either(PARTICLE_TYPE_CODEC.fieldOf("type").codec(),
+                                ParticleSprites.CODEC.codec()),
+                        PARTICLE_TYPE_CODEC.flatXmap((SimpleParticleType particleType) -> {
+                            return DataResult.success(Either.left(particleType));
+                        }, (Either<SimpleParticleType, ParticleSprites> particle) -> {
+                            return particle.left().map(DataResult::success).orElseGet(() -> {
+                                return DataResult.error(() -> {
+                                    return "Particle is not a simple particle type";
+                                });
+                            });
+                        })).optionalFieldOf("particle").forGetter(FireType::particle)).apply(instance, FireType::new);
+    });
 
     public Optional<ParticleOptions> createParticleOptions() {
         return this.particle.map((Either<SimpleParticleType, ParticleSprites> either) -> {
