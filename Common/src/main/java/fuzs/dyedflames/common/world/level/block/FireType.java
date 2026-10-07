@@ -8,6 +8,7 @@ import fuzs.dyedflames.common.core.particles.FireParticleOption;
 import fuzs.dyedflames.common.core.particles.ParticleSprites;
 import fuzs.dyedflames.common.init.ModRegistry;
 import fuzs.multiloaderdataextensions.common.api.v2.DataMapLookup;
+import fuzs.puzzleslib.common.api.util.v1.CodecExtras;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -35,16 +36,10 @@ public record FireType(Optional<TagKey<Fluid>> fluid,
                 Identifier.CODEC.fieldOf("texture0").forGetter(FireType::texture0),
                 Identifier.CODEC.fieldOf("texture1").forGetter(FireType::texture1),
                 Codec.withAlternative(Codec.either(PARTICLE_TYPE_CODEC.fieldOf("type").codec(),
-                                ParticleSprites.CODEC.codec()),
-                        PARTICLE_TYPE_CODEC.flatXmap((SimpleParticleType particleType) -> {
-                            return DataResult.success(Either.left(particleType));
-                        }, (Either<SimpleParticleType, ParticleSprites> particle) -> {
-                            return particle.left().map(DataResult::success).orElseGet(() -> {
-                                return DataResult.error(() -> {
-                                    return "Particle is not a simple particle type";
-                                });
-                            });
-                        })).optionalFieldOf("particle").forGetter(FireType::particle)).apply(instance, FireType::new);
+                                        ParticleSprites.CODEC.codec()),
+                                CodecExtras.decodeOnly(PARTICLE_TYPE_CODEC.map(Either::<SimpleParticleType, ParticleSprites>left)))
+                        .optionalFieldOf("particle")
+                        .forGetter(FireType::particle)).apply(instance, FireType::new);
     });
 
     public Optional<ParticleOptions> createParticleOptions() {
